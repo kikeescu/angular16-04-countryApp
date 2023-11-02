@@ -12,8 +12,7 @@ import { Country } from '../../interfaces/country';
 export class CountryPageComponent implements OnInit{
 
   public country?: Country;
-
-
+  public isLoading = false;
 
   constructor(
       private activatedRoute: ActivatedRoute,
@@ -47,6 +46,9 @@ export class CountryPageComponent implements OnInit{
   // }
 
   ngOnInit(): void {
+
+    this.isLoading = true;
+
     this.activatedRoute.params
             .pipe(
               switchMap( ({id}) => this.countriesService.searchCountryByAlphaCode(id) )
@@ -56,6 +58,8 @@ export class CountryPageComponent implements OnInit{
               if( !country ){
                 return this.router.navigateByUrl('');
               }
+
+              this.isLoading = false;
 
               //console.log('Tenemos un pais');
               return this.country = country;

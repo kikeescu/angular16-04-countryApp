@@ -11,6 +11,8 @@ import { Country } from '../../interfaces/country';
 export class ByRegionPageComponent {
 
   public countries: Country[] = [];
+  public isLoading = false;
+
 
   constructor( private countryService: CountriesService ) {}
 
@@ -19,9 +21,12 @@ export class ByRegionPageComponent {
     console.log('Desde ByCapitalPage');
     console.log( { term } );
 
+    this.isLoading = true;
+
     this.countryService.searchRegion( term )
             .subscribe( countries => {
               this.countries = countries;
+              this.isLoading = false;
             });
 
    }

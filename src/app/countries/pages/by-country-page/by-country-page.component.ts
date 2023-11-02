@@ -11,6 +11,8 @@ import { CountriesService } from '../../services/countries.service';
 export class ByCountryPageComponent {
 
   public countries: Country[] = [];
+  public isLoading = false;
+
 
   constructor( private countryService: CountriesService ) {}
 
@@ -19,9 +21,12 @@ export class ByCountryPageComponent {
     console.log('Desde ByCountryPage');
     console.log( { term } );
 
+    this.isLoading = true;
+
     this.countryService.searchCountry( term )
             .subscribe( countries => {
               this.countries = countries;
+              this.isLoading = false;
             });
 
    }
